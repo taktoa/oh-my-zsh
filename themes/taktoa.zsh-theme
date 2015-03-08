@@ -13,11 +13,6 @@ host_repr=('REMY-SYSTEM76' "%{$fg_bold[red]%}s76"
            'REMYDESKTOP'   "%{$fg_bold[green]%}dsk"
            'REMYSERVER'    "%{$fg_bold[blue]%}srv")
 
-# local time, color coded by last return code
-time_enabled="%(?.%{$fg[green]%}.%{$fg[red]%})%*%{$reset_color%}"
-time_disabled="%{$fg[green]%}%*%{$reset_color%}"
-time=$time_disabled
-
 # user part, color coded by privileges
 local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
 
@@ -28,7 +23,7 @@ local host="@${host_repr[$HOST]:-$HOST}%{$reset_color%}"
 # Compacted $PWD
 local pwd="%{$fg[blue]%}%c%{$reset_color%}"
 
-PROMPT='${time} ${user}${host} ${pwd} $(git_prompt_info)'
+PROMPT='${user}${host} ${pwd} $(git_prompt_info)'
 
 # i would prefer 1 icon that shows the "most drastic" deviation from HEAD,
 # but lets see how this works out
