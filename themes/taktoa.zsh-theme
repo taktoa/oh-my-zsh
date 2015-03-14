@@ -11,7 +11,8 @@ typeset -A host_repr
 # translate hostnames into shortened, colorcoded strings
 host_repr=('REMY-SYSTEM76' "%{$fg_bold[red]%}s76"
            'REMYDESKTOP'   "%{$fg_bold[green]%}dsk"
-           'REMYSERVER'    "%{$fg_bold[blue]%}srv")
+           'REMYSERVER'    "%{$fg_bold[blue]%}srv"
+           'sebastian'     "%{$fg_bold[cyan]%}ssv")
 
 # user part, color coded by privileges
 local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
