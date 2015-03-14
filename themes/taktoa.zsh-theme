@@ -20,10 +20,33 @@ local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
 # if not found, regular hostname in default color
 local host="@${host_repr[$HOST]:-$HOST}%{$reset_color%}"
 
+local nixshell="%{$fg[green]%}$IN_NIX%{$reset_color%}"
+
 # Compacted $PWD
 local pwd="%{$fg[blue]%}%c%{$reset_color%}"
 
-PROMPT='${user}${host} ${pwd} $(git_prompt_info)λ '
+function get-tmux-window () {
+  tmux lsw | grep active | sed 's/\*.*$//g;s/: / /1' | awk '{ print $2 "-" $1 }' -
+}
+
+function get-screen-window () {
+  initial="$(screen -Q windows; screen -Q echo '')"
+  middle="$(echo $initial | sed 's/  /\n/g' | grep '\*' | sed 's/\*\$ / /g')"
+  echo $middle | awk '{ print $2 "-" $1 }' -
+}
+
+function multiplexer-prompt () {
+  if [[ -z $TMUX ]]; then
+  else
+    get-tmux-window
+  fi
+  if [[ -z $WINDOW ]]; then
+  else
+    get-screen-window
+  fi
+}
+
+PROMPT='${user}${host} ${pwd} ${nixshell}$(git_prompt_info)λ '
 
 # i would prefer 1 icon that shows the "most drastic" deviation from HEAD,
 # but lets see how this works out
