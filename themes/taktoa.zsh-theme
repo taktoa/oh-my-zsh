@@ -21,7 +21,13 @@ local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
 # if not found, regular hostname in default color
 local host="@${host_repr[$HOST]:-$HOST}%{$reset_color%}"
 
-local nixshell="%{$fg[green]%}$IN_NIX%{$reset_color%}"
+local nixshell=""
+if [[ "$IN_NIX_SHELL" = "1" ]]; then
+  if [[ -z "$IN_NIX" ]]; then
+    IN_NIX="nix"
+  fi
+  nixshell="%{$fg[green]%}$IN_NIX %{$reset_color%}"
+fi
 
 # Compacted $PWD
 local pwd="%{$fg[blue]%}%c%{$reset_color%}"
@@ -53,7 +59,7 @@ PROMPT='${user}${host} ${pwd} ${nixshell}$(git_prompt_info)λ '
 # but lets see how this works out
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%} %{$fg[yellow]%}?%{$fg[green]%}%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%} %{$fg[yellow]%}UNCOMMITED%{$fg[green]%}%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}"
 
 # elaborate exitcode on the right when >0
