@@ -149,9 +149,10 @@ prompt-end() {
 
 prompt-context () {
     local -A hostAbbrev
-    hostAbbrev=('REMY-SYSTEM76' "$(col-fg red  )s76"
-                'REMYDESKTOP'   "$(col-fg green)dsk"
-                'REMYSERVER'    "$(col-fg blue )srv")
+    hostAbbrev=('REMY-SYSTEM76'     "$(col-fg red  )lap"
+                'REMYDESKTOP'       "$(col-fg green)dsk"
+                'REMYSERVER'        "$(col-fg blue )srv"
+                'rgoldschmidt-7510' "$(col-fg red  )wrk")
     local user host
     user="%(!.$(col-fg red).$(col-fg blue))%n"
     host="${hostAbbrev[${HOST}]:-${HOST}}"
